@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070b1f">
+<meta name="author" content="Nahin">
+<meta name="description" content="Office Toolkit - Image Resizer, PDF Maker, Document Editor, Spreadsheet and Slides. Offline PWA. Developed by Nahin.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Office Toolkit">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>Office Toolkit</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="left">
+    <button id="backBtn" class="iconbtn hidden" aria-label="Back" data-ico="arrowLeft"></button>
+    <div class="brand" onclick="App.go('home')"><b data-i18n="appName">Office Toolkit</b></div>
+  </div>
+  <nav class="topnav">
+    <button data-go="home" data-i18n="n_home">Home</button><button data-go="image" data-i18n="nt_image">Resizer</button><button data-go="pdf">PDF</button>
+    <button data-go="doc" data-i18n="nt_doc">Docs</button><button data-go="sheet" data-i18n="nt_sheet">Sheet</button><button data-go="slides" data-i18n="nt_slides">Slides</button><button data-go="files" data-i18n="t_files">My Files</button>
+  </nav>
+  <div class="top-actions">
+    <button id="langBtn" class="chip" title="Language"><span data-ico="globe"></span><span id="langTxt">বাংলা</span></button>
+    <button id="themeBtn" class="chip sq" title="Theme"></button>
+    <button id="installBtn" class="chip"><span data-ico="download"></span><span class="hide-sm" data-i18n="installApp">Install App</span></button>
+  </div>
+</header>
+
+<main id="main">
+  <section id="view-home" class="view active">
+    <div class="herop">
+      <div class="hero">
+        <div class="pillbadge"><span data-ico="shield"></span><span data-i18n="badge">Works 100% offline · Zero login · Local storage</span></div>
+        <h1><span data-i18n="h1a">Your pocket office,</span> <em data-i18n="h1b">ready offline.</em></h1>
+        <p data-i18n="homeSub">Resize photos, build PDFs, edit documents, and crunch spreadsheets directly on your device with local auto-save.</p>
+      </div>
+      <div class="herobtns"><button id="heroInstall" class="btn big"><span data-ico="download"></span><span data-i18n="installApp">Install App</span></button><button class="chip big" data-go="files"><span data-ico="folder"></span><span><span data-i18n="t_files">My Files</span> (<span id="fileCount">0</span>)</span></button></div>
+    </div>
+    <div class="fcards">
+      <button class="fcard" data-go="image" style="--c:#2563eb"><div class="ftop"><span class="ico" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6)" data-ico="image"></span><span class="arr" data-ico="arrowRight"></span></div><h3 data-i18n="t_image">Image Resizer</h3><p data-i18n="d_image">Batch resize, passport presets, JPG/PNG/WebP compression & live preview.</p><div class="tags">JPG · PNG · WebP</div></button>
+      <button class="fcard" data-go="pdf" style="--c:#ec4899"><div class="ftop"><span class="ico" style="background:linear-gradient(135deg,#e11d48,#ec4899)" data-ico="layers"></span><span class="arr" data-ico="arrowRight"></span></div><h3 data-i18n="t_pdf">PDF Maker</h3><p data-i18n="d_pdf">Images or text to PDF, reorder & rotate pages, merge & split PDFs.</p><div class="tags">A4 · Letter · Merge · Split</div></button>
+      <button class="fcard" data-go="doc" style="--c:#06b6d4"><div class="ftop"><span class="ico" style="background:linear-gradient(135deg,#0891b2,#22d3ee)" data-ico="fileText"></span><span class="arr" data-ico="arrowRight"></span></div><h3 data-i18n="t_doc">Document Reader & Editor</h3><p data-i18n="d_doc">Read .docx, .pdf, .md, .txt and edit rich text with .docx/.pdf export.</p><div class="tags">docx · pdf · md · txt</div></button>
+      <button class="fcard" data-go="sheet" style="--c:#10b981"><div class="ftop"><span class="ico" style="background:linear-gradient(135deg,#059669,#34d399)" data-ico="table"></span><span class="arr" data-ico="arrowRight"></span></div><h3 data-i18n="t_sheet">Spreadsheet</h3><p data-i18n="d_sheet">Formulas (SUM, IF, AVERAGE), multi-sheet tabs, .xlsx/.csv & charts.</p><div class="tags">.xlsx · .csv · Formulas · Charts</div></button>
+      <button class="fcard" data-go="slides" style="--c:#f59e0b"><div class="ftop"><span class="ico" style="background:linear-gradient(135deg,#ea580c,#f59e0b)" data-ico="present"></span><span class="arr" data-ico="arrowRight"></span></div><h3 data-i18n="t_slides">Presentation Maker</h3><p data-i18n="d_slides">Build slide decks with themes, transitions & animations, present fullscreen, export .pptx.</p><div class="tags">.pptx · Transitions · Fullscreen</div></button>
+    </div>
+    <div class="panel recent"><h3 data-i18n="recent">Recent Saved Work</h3><div id="recent" class="list"></div></div>
+    <div class="foot" data-i18n="by">Developed by Nahin</div>
+  </section>
+
+  <section id="view-image" class="view"></section>
+  <section id="view-pdf" class="view"></section>
+  <section id="view-doc" class="view"></section>
+  <section id="view-sheet" class="view"></section>
+  <section id="view-slides" class="view"></section>
+  <section id="view-files" class="view"></section>
+</main>
+
+<button id="saveBtn" class="fab" aria-label="Save"><span data-ico="save"></span><b data-i18n="save">Save</b></button>
+
+<nav class="bottomnav">
+  <button data-go="home"><span data-ico="home"></span><small data-i18n="n_home">Home</small></button>
+  <button data-go="image"><span data-ico="image"></span><small data-i18n="n_image">Image</small></button>
+  <button data-go="pdf"><span data-ico="layers"></span><small>PDF</small></button>
+  <button data-go="doc"><span data-ico="fileText"></span><small data-i18n="n_doc">Doc</small></button>
+  <button data-go="sheet"><span data-ico="table"></span><small data-i18n="n_sheet">Sheet</small></button>
+  <button data-go="slides"><span data-ico="present"></span><small data-i18n="n_slides">Slides</small></button>
+  <button data-go="files"><span data-ico="folder"></span><small data-i18n="n_files">Files</small></button>
+</nav>
+
+<div id="loader" class="loader hidden"><div class="spin"></div><p id="loaderMsg">Loading...</p></div>
+<div id="toast" class="toast"></div>
+<div id="modal" class="modal hidden"><div class="modal-box"><div class="modal-head"><b id="modalTitle"></b><button class="x" onclick="App.closeModal()">&#10005;</button></div><div id="modalBody" class="modal-body"></div><div id="modalFoot" class="modal-foot"></div></div></div>
+
+<script src="app.js"></script>
+<script src="tools/formula.js" onerror="App.missing.push(this.getAttribute('src'))"></script>
+<script src="tools/image.js" onerror="App.missing.push(this.getAttribute('src'))"></script>
+<script src="tools/pdf.js" onerror="App.missing.push(this.getAttribute('src'))"></script>
+<script src="tools/doc.js" onerror="App.missing.push(this.getAttribute('src'))"></script>
+<script src="tools/sheet.js" onerror="App.missing.push(this.getAttribute('src'))"></script>
+<script src="tools/slides.js" onerror="App.missing.push(this.getAttribute('src'))"></script>
+<script src="tools/files.js" onerror="App.missing.push(this.getAttribute('src'))"></script>
+<script>App.start();</script>
+</body>
+</html>
